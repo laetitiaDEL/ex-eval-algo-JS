@@ -1,52 +1,35 @@
-//Variable et calcul
-let nombre = prompt("Saisir le nombre de notes");
-let notes = [] 
-for (let i = 0; i < nombre; i++) {
-   let note = parseInt(prompt("saisir une note "));
-   notes.push(note);
-}
-// calculer la moyenne de notes et l'afficher dans la console 
-let totNotes = 0;
-notes.forEach((note) => {
-    totNotes += note;
-})
-//console.log(notes);
-console.log(totNotes/nombre);
+let inputAge = document.getElementById("age");
+let categorise = document.getElementById("categorise");
+let result = "";
 
-//easter egg
-let joke = document.getElementById('joke');
-joke.addEventListener("click", ()=>{
-    let request = fetch("https://v2.jokeapi.dev/joke/Any?lang=fr")
-    .then((value) =>{
-        return value.json();
-    })
-    .then((result) => {
-        document.querySelector("h2").innerText = `${result.setup}${result.delivery}`;
-    })
-    .catch((error) => {
-        document.querySelector("h2").innerText = error;
-    })
-})
 
-//conditions
-let nb1 = document.getElementById('nb1');
-let nb2 = document.getElementById('nb2');
-let calc = document.getElementById('calc');
-let posNeg = document.getElementById('pos-neg');
-
-calc.addEventListener("click", () => {
-    console.log(nb1.value);
-    console.log(nb2.value);
-    let result = "";
-    if((nb1.value>=0 && nb2.value>=0) || (nb1.value<=0 && nb2.value<=0)){
-        if((nb1.value==0) || (nb2.value == 0)){
-            result = "C'est nul.";
-        }else{
-            result = "C'est positif.";
-        }
+categorise.addEventListener("click", () => {
+    let age = inputAge.value;
+    if(age<6){
+        result = "Hors catégorie ou trop jeune.";
+    }else if(age<8){
+        result = "Appartient à la catégorie Poussin.";
+    }else if(age<10){
+        result = "Appartient à la catégorie Pupille.";
+    }else if(age<12){
+        result = "Appartient à la catégorie Minime.";
     }else{
-        result = "C'est négatif.";
+        result = "Appartient à la catégorie Cadet.";
     }
-    posNeg.innerText = result;
-    console.log(result);
+    document.querySelector("p").innerText = result;
+});
+
+//ex5
+let mot1 = document.getElementById("mot1");
+let mot2 = document.getElementById("mot2");
+let mot3 = document.getElementById("mot3");
+let tri = document.getElementById("tri");
+
+tri.addEventListener("click", () => {
+    let mots = [mot1.value, mot2.value, mot3.value];
+    if(JSON.stringify(mots) == JSON.stringify(mots.sort())){
+        document.querySelector("h4").innerText = "C'est dans l'ordre."
+    }else{
+        document.querySelector("h4").innerText = "C'est PAS dans l'ordre."
+    }
 })
