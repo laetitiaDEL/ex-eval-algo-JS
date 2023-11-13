@@ -1,21 +1,14 @@
-const bt = document.getElementById('bt');
-const nom = document.getElementById('name');
-const firstname = document.getElementById('firstname');
-const email = document.getElementById('email');
+let nombre = prompt("Saisir le nombre de notes");
+let notes = [] 
+for (let i = 0; i < nombre; i++) {
+   let note = parseInt(prompt("saisir une note "));
+   notes.push(note);
+}
+// calculer la moyenne de notes et l'afficher dans la console 
+let totNotes = 0;
+notes.forEach((note) => {
+    totNotes += note;
+})
+//console.log(notes);
+console.log(totNotes/nombre);
 
-let list = [];
-
-bt.addEventListener("click", ()=>{
-    let person = [nom.value, firstname.value, email.value];
-    list.push(person);
-    
-});
-
-//si bouton pas type button mais type submit : 
-//document.getElementById('form').onsubmit = (event)=>{
-//    event.preventDefault();
-//    let person = [nom.value, firstname.value, email.value];
-//    list.push(person);
-//}
-
-console.log(list);
