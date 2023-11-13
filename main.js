@@ -11,4 +11,11 @@ bt.addEventListener("click", ()=>{
     
 });
 
+//si bouton pas type button mais type submit : 
+//document.getElementById('form').onsubmit = (event)=>{
+//    event.preventDefault();
+//    let person = [nom.value, firstname.value, email.value];
+//    list.push(person);
+//}
+
 console.log(list);
