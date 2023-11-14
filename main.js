@@ -13,22 +13,32 @@
 let mystery = Math.floor(Math.random()*100);
 console.log(mystery);
 let msg = "Devinez le nombre mystère...";
-let cnt = 0;
-let number = 0;
-while(number != mystery){
-    if(cnt<10){
-        number = parseInt(prompt(msg));
-        if(number<mystery){
-            msg = "C'est plus !";
-        }else if(number>mystery){
-            msg ="C'est moins !";
+let cnt = 1;
+let statut = true;
+
+while(statut){
+    let number = parseInt(prompt(msg));
+
+        if(cnt<=10){
+            if(isNaN(number)){
+                console.log("Entrez un nombre !");
+            }else{
+                if(number<mystery){
+                    msg = "C'est plus !";
+                }else if(number>mystery){
+                    msg ="C'est moins !";
+                }else{
+                        console.log("Le nombre mystère était "+mystery+". Votre entraînement acharné a payé. Vous avez réussi en "+cnt+" essais.");
+                        statut = false;
+                }
+            }
         }else{
-            console.log("Le nombre mystère était "+mystery+". Votre entraînement acharné a payé. Vous avez réussi en "+cnt+" essais.");
+            console.log("Vous êtes mauvais, il va falloir penser à changer de métier...")
+            statut = false;
         }
-    }else{
-        console.log("Vous êtes mauvais, il va falloir penser à changer de métier...")
-    }
-    cnt ++;
+        cnt ++;
 }
+
+
 
 
