@@ -1,35 +1,41 @@
-//ex 6
+//ex 8
+let valeurs = [];
+let nombre = parseInt(prompt("Combien de valeurs souhaitez-vous entrer ?"));
 
-let nom = document.getElementById("article");
-let prix = document.getElementById("prix");
-let nombre = document.getElementById("nombre");
-let calculer = document.getElementById("calculer");
-
-let newArticle = [];
-
-calculer.addEventListener("click", () => {
-    newArticle.push(nom.value, prix.value, nombre.value);
-    document.querySelector("em").innerText = prix.value*1.2*nombre.value;
-})
-
-//ex 7
-let users = [];
-for(let i=1; i<=5; i++){
-    let user = [];
-    let userNom = prompt("Nom utilisateur "+i);
-    let userPrenom = prompt("Prénom utilisateur "+i);
-    let userAge = parseInt(prompt("Âge utilisateur "+i));
-    user.push(userNom, userPrenom, userAge);
-    users.push(user);
+for(let i=1; i<=nombre; i++){
+    let valeur = prompt("Valeur "+i);
+    valeurs.push(valeur);
 }
+let pos=0;
+let neg=0;
+let res;
+let compare = Math.abs(valeurs[0]);
 
-let compare = 1000;
-let younger;
-for(let i=0; i<5; i++){
+for(let i=0; i<valeurs.length; i++){
+    if(valeurs[i]>=0){
+        pos++;
+    }else{
+        neg++;
+    }
 
-    if(users[i][2]<compare){
-        compare = users[i][2];
-        younger = "Le plus jeune est "+users[i][0]+" "+users[i][1];
+    if(Math.abs(valeurs[i])>compare){
+        compare = Math.abs(valeurs[i]);
+        res= "La valeur absolue la plus élevée est "+Math.abs(valeurs[i]);
     }
 }
-console.log(younger);
+let phrasePos;
+if(pos>1){
+    phrasePos = "Il y a "+pos+" valeurs positives.";
+}else{
+    phrasePos = "Il n'y a pas de valeur positive.";
+}
+let phraseNeg;
+if(pos>1){
+    phraseNeg = "Il y a "+neg+" valeurs négatives.";
+}else{
+    phraseNeg = "Il n'y a pas de valeur négative.";
+}
+
+console.log(phrasePos);
+console.log(phraseNeg);
+console.log(res);
