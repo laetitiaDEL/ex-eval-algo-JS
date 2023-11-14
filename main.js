@@ -1,20 +1,34 @@
-//ex 9
-//Exercice 9 Conditions :
-//Une boulangerie vend des chocolatines. Pour calculer le prix qu'elle va facturer a ses clients elle a besoin d'un programme. 
-//-Une chocolatine coûte 1€40 a l'unité jusqu'à 10. 
-//-Les 10 suivantes coûtent 1€30 pièce et 
-//-Au-delà elles coûtent 1€20 pièce.
-//Écrire un programme qui calcule le prix à payer  en fonction de la quantité (depuis un prompt) 
-//Afficher dans la console le montant à payer.
+//Exercice 10 Boucles :
+//Pour son nouveau spectacle, un mentaliste a besoin d'un programme pour s'exercer à deviner un nombre entre 1 et 100.
+//Pour réussir son tour il doit deviner le nombre en moins de 10 tentatives.
+//A chaque tour il va demander si le nombre qu’il énonce est plus petit ou plus grand que le nombre choisi.
+//-Si il réussit à découvrir le nombre en moins de 10 essais 
+            //-> afficher : son entrainement acharné a payé, 
+//-Sinon 
+           //-> afficher : il est un mauvais mentaliste et il va devoir changer de métier.
+//Il souhaite savoir en cas de réussite (nombre trouvé en moins de 10 essais) 
+           //-> afficher : le nombre d'essai qu'il a effectué pour trouver le nombre.
 
-let nombre = parseInt(prompt("Combien de PAINS AU CHOCOLAT ?"));
-let prix;
-if(nombre <= 10){
-    prix = nombre*1.40;
-}else if(nombre<=20){
-    prix = 10*1.4 + ((nombre-10)*1.3);
-}else{
-    prix = 10*1.4 + 10*1.3 + ((nombre-20)*1.2);
+
+let mystery = Math.floor(Math.random()*100);
+console.log(mystery);
+let msg = "Devinez le nombre mystère...";
+let cnt = 0;
+let number = 0;
+while(number != mystery){
+    if(cnt<10){
+        number = parseInt(prompt(msg));
+        if(number<mystery){
+            msg = "C'est plus !";
+        }else if(number>mystery){
+            msg ="C'est moins !";
+        }else{
+            console.log("Le nombre mystère était "+mystery+". Votre entraînement acharné a payé. Vous avez réussi en "+cnt+" essais.");
+        }
+    }else{
+        console.log("Vous êtes mauvais, il va falloir penser à changer de métier...")
+    }
+    cnt ++;
 }
 
-console.log(prix+"€");
+
