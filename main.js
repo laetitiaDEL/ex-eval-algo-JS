@@ -26,12 +26,16 @@ for(let i=0; i<valeurs.length; i++){
 let phrasePos;
 if(pos>1){
     phrasePos = "Il y a "+pos+" valeurs positives.";
+}else if(pos==1){
+    phrasePos = "Il y a une valeur positive.";
 }else{
     phrasePos = "Il n'y a pas de valeur positive.";
 }
 let phraseNeg;
-if(pos>1){
+if(neg>1){
     phraseNeg = "Il y a "+neg+" valeurs négatives.";
+}else if(neg==1){
+    phraseNeg = "Il y a une valeur négative.";
 }else{
     phraseNeg = "Il n'y a pas de valeur négative.";
 }
