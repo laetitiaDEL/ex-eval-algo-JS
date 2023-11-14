@@ -1,45 +1,20 @@
-//ex 8
-let valeurs = [];
-let nombre = parseInt(prompt("Combien de valeurs souhaitez-vous entrer ?"));
+//ex 9
+//Exercice 9 Conditions :
+//Une boulangerie vend des chocolatines. Pour calculer le prix qu'elle va facturer a ses clients elle a besoin d'un programme. 
+//-Une chocolatine coûte 1€40 a l'unité jusqu'à 10. 
+//-Les 10 suivantes coûtent 1€30 pièce et 
+//-Au-delà elles coûtent 1€20 pièce.
+//Écrire un programme qui calcule le prix à payer  en fonction de la quantité (depuis un prompt) 
+//Afficher dans la console le montant à payer.
 
-for(let i=1; i<=nombre; i++){
-    let valeur = prompt("Valeur "+i);
-    valeurs.push(valeur);
-}
-let pos=0;
-let neg=0;
-let res;
-let compare = Math.abs(valeurs[0]);
-
-for(let i=0; i<valeurs.length; i++){
-    if(valeurs[i]>=0){
-        pos++;
-    }else{
-        neg++;
-    }
-
-    if(Math.abs(valeurs[i])>compare){
-        compare = Math.abs(valeurs[i]);
-        res= "La valeur absolue la plus élevée est "+Math.abs(valeurs[i]);
-    }
-}
-let phrasePos;
-if(pos>1){
-    phrasePos = "Il y a "+pos+" valeurs positives.";
-}else if(pos==1){
-    phrasePos = "Il y a une valeur positive.";
+let nombre = parseInt(prompt("Combien de PAINS AU CHOCOLAT ?"));
+let prix;
+if(nombre <= 10){
+    prix = nombre*1.40;
+}else if(nombre<=20){
+    prix = 10*1.4 + ((nombre-10)*1.3);
 }else{
-    phrasePos = "Il n'y a pas de valeur positive.";
-}
-let phraseNeg;
-if(neg>1){
-    phraseNeg = "Il y a "+neg+" valeurs négatives.";
-}else if(neg==1){
-    phraseNeg = "Il y a une valeur négative.";
-}else{
-    phraseNeg = "Il n'y a pas de valeur négative.";
+    prix = 10*1.4 + 10*1.3 + ((nombre-20)*1.2);
 }
 
-console.log(phrasePos);
-console.log(phraseNeg);
-console.log(res);
+console.log(prix+"€");
