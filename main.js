@@ -1,39 +1,68 @@
-//Exercice 14 Classes et Objet :
-//Créer un programme permettant de Calculer l’IMC d’une personne
-//    -Créer une classe Imc avec un constructeur qui recevra un nom, un poids, une taille
-//    -Créer une fonction de calcul d’IMC, qui retourne le résultat du calcul (à 2 nombre après la virgule si possible)
-//    -Créer une fonction d’affichage « display », elle a pour rôle d’afficher en console : 
-//Le nom de la personne, son poids, sa taille et son imc dans une phrase 
-//    -En dehors de la class (donc dans le programme principal), récupérer la variable list (un tableau de nouvelle instances de la class) 
-//    -Trouver un moyen de parcourir les éléments dans la variable list, sur chaque element utiliser la fonction display .
+//Exercice 15 Classe et Objet :
+//-Créer une classe Vehicule avec les attributs suivants :
+//nom, couleur, nbrRoue, vitesse,
+//-Instancier 2 nouveaux Vehicule avec les paramètres suivants :
+//-Objet voiture (nomVehicule = « Mercedes CLK », nbrRoue = 4, vitesse 250),
+//-Objet moto (nomVehicule = « Honda CBR », nbrRoue = 2, vitesse = 280),
+//-Créer une fonction detect() qui détecte si le véhicule est une moto ou une voiture (la méthode retourne une string  moto ou voiture avec return),
+//-Exécuter la méthode detect() sur les 2 objets voiture et moto,
+//-Afficher le type de Vehicule (méthode detect afficher dans la console)
+//-Créer une méthode boost qui ajoute 50 à la vitesse d’un Vehicule
+//-Appliquer la méthode boost a la voiture,
+//-Afficher la nouvelle vitesse de la voiture,
 
-class Imc{
+//Bonus :
+//-Créer une méthode plusRapide() dans la classe Vehicule qui compare la vitesse des différents véhicules (moto et voiture) et retourne le Vehicule le plus rapide des 2 avec un return.
+//-Exécuter la méthode plusRapide(),
+//-Afficher le Vehicule le plus rapide dans la console.
+
+class Vehicule{
     nom;
-    poids;
-    taille;
+    couleur;
+    nbrRoues;
+    vitesse;
 
-    constructor(newNom, newPoids, newTaille){
+    constructor(newNom, newCouleur, newNbrRoues, newVitesse){
         this.nom = newNom;
-        this.poids = newPoids;
-        this.taille = newTaille;
+        this.couleur = newCouleur;
+        this.nbrRoues = newNbrRoues;
+        this.vitesse = newVitesse;
     }
 
-    calculIMC(){
-        this.calcul = (this.poids/(this.taille*this.taille)).toFixed(2);
+    detect(){
+        if(this.nbrRoues == 2){
+            return "Le véhicule "+this.nom+" est une Moto";
+        }
+        if(this.nbrRoues == 4){
+            return "Le véhicule "+this.nom+" est une Voiture";
+        }
     }
 
-    displayIMC(){
-        console.log("L'IMC de "+this.nom+" ("+this.poids+"kg pour "+this.taille+"m) est de "+this.calcul);
+    boost(){
+        this.vitesse += 50;
+    }
+
+    plusRapide(vehicule){
+        if(this.vitesse>vehicule.vitesse){
+            return "Le véhicule le plus rapide est "+this.nom;
+        }else if(this.vitesse<vehicule.vitesse){
+            return "Le véhicule le plus rapide est "+vehicule.nom;
+        }else{
+            return "Les deux véhicules roulent à la même vitesse."
+        }
     }
 }
 
-const mob = new Imc("Random", 70, 1.7);
-mob.calculIMC();
-mob.displayIMC();
+//-Objet voiture (nomVehicule = « Mercedes CLK », nbrRoue = 4, vitesse 250),
+const voiture = new Vehicule("Mercedes CLK", "rouge", 4, 250);
+//-Objet moto (nomVehicule = « Honda CBR », nbrRoue = 2, vitesse = 280),
+const moto = new Vehicule("Honda CBR", "noir", 2, 280);
 
-let list = [new Imc("Pierre", 65, 1.75), new Imc("Paul", 72, 1.82), new Imc("Jacques", 85, 1.92)];
+console.log(moto.detect());
+console.log(voiture.detect());
 
-list.forEach(e => {
-    e.calculIMC();
-    e.displayIMC();
-});
+voiture.boost();
+
+console.log(voiture.vitesse);
+
+console.log(moto.plusRapide(voiture));
