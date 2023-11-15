@@ -1,18 +1,67 @@
-//Exercice 12 Boucles :
-//Ecrire un programme qui demande un nombre de départ (prompt), et qui ensuite affiche la table de multiplication de ce nombre dans la console, présentée comme suit (cas où l'utilisateur entre le nombre 7) :
-//Table de 7 :
-//7 x 1 = 7
-//7 x 2 = 14
-//7 x 3 = 21
-//…
-//7 x 10 = 70
+//Depuis l'exemple de classe Animal :
+//-Instancier 2 nouveaux objets :
+//     -objet chien (chien, 4, 50, 9),
+//     -objet coq(coq, 2, 40, 3),
+//-Modifier la classe Animal :
+//    ->modifier la fonction crier pour intégrer les espèces (chien et coq) et afficher dans la console un cris différent,
+//-Appeler la fonction crier sur les 4 objets :
+//tigre, chat, chien et le coq (pour vérifier si elle fonctionne correctement)
+//-Ajouter une méthode dormir qui va 
+//    -> afficher dans la console (Zzzzzz),
+//-Appeler la méthode dormir sur les objets :
+//tigre, chat, chien et coq.
 
-let nombre = parseInt(prompt("Choisir un nombre :"));
-if(isNaN(nombre)){
-    console.log("Veuillez entrer un nombre.");
-}else{
-    console.log("Table de "+nombre+" :");
-    for(let i=1; i<=10; i++){
-        console.log(nombre+" x "+i+" = "+nombre*i);
+class Animal{
+    //attributs
+    espece;
+    nbrPattes;
+    age;
+    taille;
+    poid;
+    couleur;
+    //Constructeur
+    constructor(newEspece, newNbrPattes, newTaille, newPoid){
+        this.espece = newEspece;
+        this.nbrPattes = newNbrPattes;
+        this.taille = newTaille;
+        this.poid = newPoid;
+    }
+    //méthode
+    crier(){
+        if(this.espece == "Tigre" || this.espece == "tigre"){
+            console.log("Grrr");
+        }
+        if(this.espece == "Chat" || this.espece == "chat"){
+            console.log("Miaou");
+        }
+        if(this.espece == "Chien" || this.espece == "chien"){
+            console.log("Waf");
+        }        
+        if(this.espece == "Coq" || this.espece == "coq"){
+            console.log("Cock-a-doodle-do");
+        }
+    }
+    dormir(){
+        console.log("Zzzzz");
     }
 }
+const tigre = new Animal('tigre', 4, 150, 180);
+const chat = new Animal('chat', 4, 30,4);
+
+console.log(tigre);
+tigre.taille = 180;
+tigre.couleur = "Blanc";
+console.log(tigre);
+tigre.crier();
+chat.crier();
+
+const chien = new Animal('chien', 4, 50, 9);
+const coq = new Animal('coq', 2, 40, 3);
+
+chien.crier();
+coq.crier();
+
+tigre.dormir();
+chat.dormir();
+chien.dormir();
+coq.dormir();
