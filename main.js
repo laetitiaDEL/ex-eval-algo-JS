@@ -8,7 +8,11 @@
 //7 x 10 = 70
 
 let nombre = parseInt(prompt("Choisir un nombre :"));
-console.log("Table de "+nombre+" :");
-for(let i=1; i<=10; i++){
-    console.log(nombre+" x "+i+" = "+nombre*i);
+if(isNaN(nombre)){
+    console.log("Veuillez entrer un nombre.");
+}else{
+    console.log("Table de "+nombre+" :");
+    for(let i=1; i<=10; i++){
+        console.log(nombre+" x "+i+" = "+nombre*i);
+    }
 }
