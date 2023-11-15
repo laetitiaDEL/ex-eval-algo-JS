@@ -1,42 +1,39 @@
-//Exercice 13 Classes et Objet :
-//Créer une classe Maison avec comme attributs (constructeur):
-//-Nom,
-//-Longueur,
-//-Largeur,
-//Créer une méthode périmètre de la maison,
-//Créer une méthode surface de la maison,
-//Afficher le périmètre dans la console en mètre linéaire,
-//Afficher la surface dans la console en mètre carré,
+//Exercice 14 Classes et Objet :
+//Créer un programme permettant de Calculer l’IMC d’une personne
+//    -Créer une classe Imc avec un constructeur qui recevra un nom, un poids, une taille
+//    -Créer une fonction de calcul d’IMC, qui retourne le résultat du calcul (à 2 nombre après la virgule si possible)
+//    -Créer une fonction d’affichage « display », elle a pour rôle d’afficher en console : 
+//Le nom de la personne, son poids, sa taille et son imc dans une phrase 
+//    -En dehors de la class (donc dans le programme principal), récupérer la variable list (un tableau de nouvelle instances de la class) 
+//    -Trouver un moyen de parcourir les éléments dans la variable list, sur chaque element utiliser la fonction display .
 
-//Bonus :
-//Ajouter un attribut nbrEtage à la maison,
-//Afficher dans la console la surface pour 3 étages en mètre carrés.
-
-class Maison{
-    //attributs
+class Imc{
     nom;
-    longueur;
-    largeur;
-    nbrEtages;
-    //constructeur
-    constructor(newNom, newLongueur, newLargeur, newNbrEtages){
+    poids;
+    taille;
+
+    constructor(newNom, newPoids, newTaille){
         this.nom = newNom;
-        this.longueur = newLongueur;
-        this.largeur = newLargeur;
-        this.nbrEtages = newNbrEtages;
+        this.poids = newPoids;
+        this.taille = newTaille;
     }
-    //méthodes
-    perimetre(){
-        this.perimetreMaison = (this.largeur+this.longueur)*2;
-        console.log(this.perimetreMaison);
+
+    calculIMC(){
+        this.calcul = (this.poids/(this.taille*this.taille)).toFixed(2);
     }
-    surface(){
-        this.surfaceMaison = (this.largeur*this.longueur*this.nbrEtages);
-        console.log(this.surfaceMaison);
+
+    displayIMC(){
+        console.log("L'IMC de "+this.nom+" ("+this.poids+"kg pour "+this.taille+"m) est de "+this.calcul);
     }
 }
 
-const maMaison = new Maison('Ma maison', 10, 20, 3);
+const mob = new Imc("Random", 70, 1.7);
+mob.calculIMC();
+mob.displayIMC();
 
-maMaison.perimetre();
-maMaison.surface();
+let list = [new Imc("Pierre", 65, 1.75), new Imc("Paul", 72, 1.82), new Imc("Jacques", 85, 1.92)];
+
+list.forEach(e => {
+    e.calculIMC();
+    e.displayIMC();
+});
