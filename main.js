@@ -27,16 +27,15 @@
 //XXX = 90%
 
 class Employee{
-    constructor(newNom, newPrenom, newSalaireMensuel, newNbMois, newCharges){
+    constructor(newNom, newPrenom, newSalaireMensuel, newNbMois){
         this.nom = newNom;
         this.prenom = newPrenom;
         this.salaireMensuel = newSalaireMensuel;
         this.nbMois = newNbMois;
-        this.charges = newCharges;
     }
 
     employeeCost(){
-        return (this.salaireMensuel)*this.nbMois*this.charges/100;
+        return this.salaireMensuel*this.nbMois+this.salaireMensuel*XXX*this.nbMois;
     }
 }
 
@@ -63,11 +62,11 @@ class Pme{
 }
 
 let N = 12;
-let XXX = 90;
+let XXX = 0.1;
 
-let employee1 = new Employee("Nom1", "Prenom1", 2000, N, XXX);
-let employee2 = new Employee("Nom2", "Prenom2", 3000, N, XXX);
-let employee3 = new Employee("Nom3", "Prenom3", 4000, N, XXX);
+let employee1 = new Employee("Nom1", "Prenom1", 2000, N);
+let employee2 = new Employee("Nom2", "Prenom2", 3000, N);
+let employee3 = new Employee("Nom3", "Prenom3", 4000, N);
 
 let equipe = [employee1, employee2, employee3];
 
