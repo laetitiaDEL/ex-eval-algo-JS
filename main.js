@@ -1,71 +1,69 @@
-//Exercice 16 classe et Objet :
-//Créer une classe Personnage qui va contenir les éléments suivants :
-//-nom, force, défense, vie
-//-un méthode pour attaquer (elle va soustraire à la vie du personnage la valeur de attaque (attaquant) à défense (notre personnage),
-//Créer une classe Combat qui  va contenir éléments suivants :
-//-nbr de tour, score joueur 1, score joueur 2,
-//-Une méthode qui va lancer les combats (elle va appeler la méthode attaque du joueur 1), (appeler la méthode d'attaque du joueur 2). 
-//Cela va s'exécuter autant de tour que la valeur nbr de tour. 
-//Celui qui arrive à zéro à perdu.
-//Ella va afficher le nom du gagnant.
+//Exercice 17 classe et Objet :
+//Gérer des compte en banque :
+//Créer une classe CompteBancaire avec des méthodes de crédit, de retrait, de visualisation de l’état du compte bancaire (en console), on doit pouvoir aussi faire un virement d’un membre à un autre.
+//Faire un scénario avec la gestion de 3 comptes crédités à 1000 € chacun (Alex, Clovis, Marco)
+//Puis Alex retire 100
+//Puis Marco fait un virement de 300 à Clovis
+//Enfin Alex tente un retrait de 600
+//Afficher tous les soldes finaux.
+//Ces compte sont placés dans un tableau associatif de clients
 
-class Personnage{
-    nom;
-    force;
-    defense;
-    vie;
+//Bonus :
+//Générer une exception pour ne pas dépasser le solde (pas de retrait ou de virement qui dépassent le solde du compte bancaire),
+//Tester avec une tentatives de retret de Alex de 1200 €
 
-    constructor(newNom, newForce, newDefense, newVie){
-        this.nom = newNom;
-        this.force = newForce;
-        this.defense = newDefense;
-        this.vie = newVie;
+class CompteBancaire{
+    proprietaire;
+    solde;
+
+    constructor(newProprietaire, newSolde){
+        this.proprietaire = newProprietaire;
+        this.solde = newSolde;
     }
 
-    attack(perso2){
-        perso2.vie -= (this.force-perso2.defense);
+    credit(nb){
+        this.solde += nb;
+        console.log(this.proprietaire+" crédite son compte de "+nb+"€.");
+        this.display();
+    }
+
+    retrait(nb){
+        if(this.solde>=nb){
+            this.solde -= nb;
+            console.log(this.proprietaire+" débite son compte de "+nb+"€.");
+            this.display();
+        }else{
+            console.log("Retrait impossible, solde insuffisant.")
+        }
+
     }
 
     display(){
-        console.log(this.nom+" a maintenant "+this.vie+" point(s) de vie.");
-    }
-}
-
-class Combat{
-    nbrTour;
-    J1;
-    J2;
-
-    constructor(newNbrTour, newJ1, newJ2){
-        this.nbrTour = newNbrTour;
-        this.J1 = newJ1;
-        this.J2 = newJ2;
+        console.log(this.proprietaire+" a "+this.solde+"€ sur son compte.")
     }
 
-    lancer(){
-        for(let i=0; i<this.nbrTour; i++){
-            if(this.J2.vie>this.J1.force-this.J2.defense){
-                this.J1.attack(this.J2);
-                this.J2.display();
-            }else{
-                console.log(this.J2.nom+" n'a plus de PV. "+this.J1.nom+" gagne.");
-                return;
-            }
-            if(this.J1.vie>this.J2.force-this.J1.defense){
-                this.J2.attack(this.J1);
-                this.J1.display();
-            }else{
-                console.log(this.J1.nom+" n'a plus de PV. "+this.J2.nom+" gagne.");
-
-                return;
-            }
+    virement(nb, versCompte){
+        if(this.solde>=nb){
+            this.solde -= nb;
+            versCompte.solde += nb;
+            console.log(this.proprietaire+" fait un virement de "+nb+"€ à "+versCompte.proprietaire);
+            this.display();
+            versCompte.display();
+        }else{
+            console.log("Virement impossible, solde insuffisant.")
         }
+
     }
 }
 
-const sorcier = new Personnage("Grinwald", 37, 4, 48);
-const tank = new Personnage("Grump", 22, 10, 74);
+let alex = new CompteBancaire("Alex", 1000);
+let clovis = new CompteBancaire("Clovis", 1000);
+let marco = new CompteBancaire("Marco", 1000);
 
-const combat1 = new Combat(10, sorcier, tank);
+let clients = [alex, clovis, marco];
 
-combat1.lancer();
+alex.retrait(100);
+marco.virement(300, clovis);
+alex.retrait(600);
+alex.retrait(1200);
+console.log(clients);
