@@ -24,7 +24,7 @@
 //FF = 20000 (vingt mille)
 //FA = 50000 (cinquante mille)
 //N = 12
-//XXX = 90%
+//XXX = 10%
 
 class Employee{
     constructor(newNom, newPrenom, newSalaireMensuel, newNbMois){
