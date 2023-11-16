@@ -1,69 +1,75 @@
-//Exercice 17 classe et Objet :
-//Gérer des compte en banque :
-//Créer une classe CompteBancaire avec des méthodes de crédit, de retrait, de visualisation de l’état du compte bancaire (en console), on doit pouvoir aussi faire un virement d’un membre à un autre.
-//Faire un scénario avec la gestion de 3 comptes crédités à 1000 € chacun (Alex, Clovis, Marco)
-//Puis Alex retire 100
-//Puis Marco fait un virement de 300 à Clovis
-//Enfin Alex tente un retrait de 600
-//Afficher tous les soldes finaux.
-//Ces compte sont placés dans un tableau associatif de clients
+//Exercice 18 Classe et Objet :
+//Gérer une PME
+//Cahier des charges :
 
-//Bonus :
-//Générer une exception pour ne pas dépasser le solde (pas de retrait ou de virement qui dépassent le solde du compte bancaire),
-//Tester avec une tentatives de retret de Alex de 1200 €
+//-Un Salarié a un nom, prénom, âge, salaire mensuel
+//Il est payé sur N mois.
+//En plus il y a XXX de charges
 
-class CompteBancaire{
-    proprietaire;
-    solde;
+//-Une Pme c’est un nom, une équipe de plusieurs salariés
+//Grace à ses ventes elle a des revenus R
+//Mais aussi … : 
+//des frais fixes FF (impôts etc…)
+//Des frais d’achats de matériel et de logiciels FA
 
-    constructor(newProprietaire, newSolde){
-        this.proprietaire = newProprietaire;
-        this.solde = newSolde;
+//TODO : 
+//Créer une classe Pme et une classe Employee
+//Utiliser des fonctions
+//Faire le bilan annuel de l’entreprise et l’afficher en console.
+//(Bilan reste en solde de la Pme)
+
+//Détails : 
+//3 salariés qui gagnent par mois : 2000, 3000 et 4000 euros
+//R = 300000 (trois cent mille)
+//FF = 20000 (vingt mille)
+//FA = 50000 (cinquante mille)
+//N = 12
+//XXX = 90%
+
+class Employee{
+    constructor(newNom, newPrenom, newSalaireMensuel, newNbMois, newCharges){
+        this.nom = newNom;
+        this.prenom = newPrenom;
+        this.salaireMensuel = newSalaireMensuel;
+        this.nbMois = newNbMois;
+        this.charges = newCharges;
     }
 
-    credit(nb){
-        this.solde += nb;
-        console.log(this.proprietaire+" crédite son compte de "+nb+"€.");
-        this.display();
-    }
-
-    retrait(nb){
-        if(this.solde>=nb){
-            this.solde -= nb;
-            console.log(this.proprietaire+" débite son compte de "+nb+"€.");
-            this.display();
-        }else{
-            console.log("Retrait impossible, solde insuffisant.")
-        }
-
-    }
-
-    display(){
-        console.log(this.proprietaire+" a "+this.solde+"€ sur son compte.")
-    }
-
-    virement(nb, versCompte){
-        if(this.solde>=nb){
-            this.solde -= nb;
-            versCompte.solde += nb;
-            console.log(this.proprietaire+" fait un virement de "+nb+"€ à "+versCompte.proprietaire);
-            this.display();
-            versCompte.display();
-        }else{
-            console.log("Virement impossible, solde insuffisant.")
-        }
-
+    employeeCost(){
+        return (this.salaireMensuel)*this.nbMois*this.charges/100;
     }
 }
 
-let alex = new CompteBancaire("Alex", 1000);
-let clovis = new CompteBancaire("Clovis", 1000);
-let marco = new CompteBancaire("Marco", 1000);
+class Pme{
+    constructor(newNom, newEquipe, newR, newFf, newFa){
+        this.nom = newNom;
+        this.equipe = newEquipe;
+        this.r = newR;
+        this.ff = newFf;
+        this.fa = newFa;
+    }
 
-let clients = [alex, clovis, marco];
+    allEmployeesCost(){
+        let tot = 0;
+        this.equipe.forEach(employee => {
+            tot += employee.employeeCost();
+        });
+        return tot;
+    }
 
-alex.retrait(100);
-marco.virement(300, clovis);
-alex.retrait(600);
-alex.retrait(1200);
-console.log(clients);
+    bilan(){
+        return this.r - (this.allEmployeesCost()+this.ff+this.fa);
+    }
+}
+
+let N = 12;
+let XXX = 90;
+
+let employee1 = new Employee("Nom1", "Prenom1", 2000, N, XXX);
+let employee2 = new Employee("Nom2", "Prenom2", 3000, N, XXX);
+let employee3 = new Employee("Nom3", "Prenom3", 4000, N, XXX);
+
+let equipe = [employee1, employee2, employee3];
+
+let maPme = new Pme("Ma PME", equipe, 300000, 20000, 50000);
+console.log(maPme.bilan());
