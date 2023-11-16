@@ -1,74 +1,102 @@
-//Exercice 18 Classe et Objet :
-//Gérer une PME
-//Cahier des charges :
-
-//-Un Salarié a un nom, prénom, âge, salaire mensuel
-//Il est payé sur N mois.
-//En plus il y a XXX de charges
-
-//-Une Pme c’est un nom, une équipe de plusieurs salariés
-//Grace à ses ventes elle a des revenus R
-//Mais aussi … : 
-//des frais fixes FF (impôts etc…)
-//Des frais d’achats de matériel et de logiciels FA
-
-//TODO : 
-//Créer une classe Pme et une classe Employee
-//Utiliser des fonctions
-//Faire le bilan annuel de l’entreprise et l’afficher en console.
-//(Bilan reste en solde de la Pme)
-
-//Détails : 
-//3 salariés qui gagnent par mois : 2000, 3000 et 4000 euros
-//R = 300000 (trois cent mille)
-//FF = 20000 (vingt mille)
-//FA = 50000 (cinquante mille)
-//N = 12
-//XXX = 10%
-
-class Employee{
-    constructor(newNom, newPrenom, newSalaireMensuel, newNbMois){
-        this.nom = newNom;
-        this.prenom = newPrenom;
-        this.salaireMensuel = newSalaireMensuel;
-        this.nbMois = newNbMois;
+const usersHuman = [{
+        type: "humain",
+        name: "John Doe",
+        email: "j.smith@gmail.com",
+        age: 25
+    },
+    {
+        type: "humain",
+        name: "Jane Smith",
+        email: "ja.doe@sfr.fr",
+        age: 5
+    },
+    {
+        type: "humain",
+        name: "Le Vénérable",
+        email: "levy@gmail.com",
+        age: 500
     }
+];
 
-    employeeCost(){
-        return this.salaireMensuel*this.nbMois+this.salaireMensuel*XXX*this.nbMois;
+const usersPet = [{
+        type: "animal de compagnie",
+        espece: "chien",
+        name: "Rox",
+        age: 7,
+        propriétaire: "John Doe"
+    },
+    {
+        type: "animal de compagnie",
+        espece: "renard",
+        name: "Roukie",
+        age: 300,
+        propriétaire: "Le Vénérable"
     }
+];
+
+const usersXeno = [{
+        type: "Xeno",
+        espece: "Krogan",
+        name: "Wrex",
+        menace: "Rouge",
+        age: 45
+    },
+    {
+        type: "Xeno",
+        espece: "Turien",
+        name: "Garrus",
+        menace: "Vert",
+        age: 35
+    },
+    {
+        type: "Xeno",
+        espece: "Asari",
+        name: "Liara",
+        menace: "ULTRA Rouge",
+        age: 25
+    }
+];
+
+const tabData = [];
+tabData.push(usersHuman, usersPet, usersXeno);
+
+function afficherHumain(obj){
+    let affichage = "--------------- \n nom : "+obj.name+"\n email : "+obj.email+"\n age : "+obj.age+"\n---------------";
+    console.log(affichage);
 }
 
-class Pme{
-    constructor(newNom, newEquipe, newR, newFf, newFa){
-        this.nom = newNom;
-        this.equipe = newEquipe;
-        this.r = newR;
-        this.ff = newFf;
-        this.fa = newFa;
-    }
-
-    allEmployeesCost(){
-        let tot = 0;
-        this.equipe.forEach(employee => {
-            tot += employee.employeeCost();
-        });
-        return tot;
-    }
-
-    bilan(){
-        return this.r - (this.allEmployeesCost()+this.ff+this.fa);
-    }
+function afficherAnimal(obj){
+    let affichage = "--------------- \n nom : "+obj.name+"\n espece : "+obj.espece+"\n age : "+obj.age+"\n propriétaire : "+obj.propriétaire+"\n---------------";
+    console.log(affichage);
 }
 
-let N = 12;
-let XXX = 0.1;
+function afficherXeno(obj){
+    let affichage = "--------------- \n nom : "+obj.name+"\n espece : "+obj.espece+"\n age : "+obj.age+"\n niveau de menace : "+obj.menace+"\n---------------";
+    console.log(affichage);
+}
 
-let employee1 = new Employee("Nom1", "Prenom1", 2000, N);
-let employee2 = new Employee("Nom2", "Prenom2", 3000, N);
-let employee3 = new Employee("Nom3", "Prenom3", 4000, N);
+function profil(t){
+    t.forEach(e => {
+        if(e.type == "humain"){
+            afficherHumain(e);
+        }else if(e.type == "animal de compagnie"){
+            afficherAnimal(e);
+        }else if(e.type == "Xeno"){
+            afficherXeno(e);
+        }else{
+            console.log("Type de Profil non Existant");
+        }
+    });
+}
 
-let equipe = [employee1, employee2, employee3];
+profil(usersHuman);
+profil(usersPet);
+profil(usersXeno);
 
-let maPme = new Pme("Ma PME", equipe, 300000, 20000, 50000);
-console.log(maPme.bilan());
+function profilAll(t){
+    t.forEach(t => {
+        profil(t);
+    });
+}
+
+profilAll(tabData);
