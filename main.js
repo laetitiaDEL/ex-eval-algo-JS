@@ -16,7 +16,7 @@
 
 let titre = document.querySelector("h1");
 let div = document.querySelector("div");
-let parag = document.querySelector("p");
+let parag = document.querySelector("div p");
 
 titre.style.fontSize = "14px";
 div.style.fontFamily = "Arial";
