@@ -1,27 +1,48 @@
-//Exercice 19 DOM :
-//Ajouter les éléments HTML suivants dans votre page index.html :
-//-Titre h1 avec un texte à l'intérieur,
-//-Une div avec du texte à l'intérieur,
-//-Dans la div un paragraphe avec du texte à l'intérieur,
-//En JS :
-//Vous allez changer:
-//-la taille de la police du titre h1 en 14 px,
-//-la police de la div et du paragraphe en Arial,
-//-la couleur du texte du paragraphe en vert,
-//-Ajouter un margin top à la div de 30 px,
-//Remplacer :
-//-le contenu du titre h1 par -> nouveau titre,
-//-le contenu du paragraphe -> nouveau contenu du paragraphe.
-//NB : En utilisant querySelector.
+//Exercice 20 DOM :
+//Créer une page HTML qui va contenir les éléments suivants :
+//-Un titre h1 -> "Liste des utilisateurs",
+//-Une div,
+//-Dans la div ajouter :
+//        --1 balise img,
+//        --3 paragraphes,
+//Depuis l'objet JS ci-dessous (remplacer les valeurs par vos propres informations):
+ const user = {
+  'id' : 1,
+  'nom': 'Deloirs',
+  'prenom': 'Laëtitia',
+  'age': 31,
+  'image' :'./logo.jpg'
+}
 
-let titre = document.querySelector("h1");
+//-Ajouter un attribut id à la div qui va avoir en valeur -> (user.id),
+//-Remplacer le contenu des 3 paragraphes par les valeurs user.nom, user.prenom et user.age,
+///-Remplacer l'image par l'url contenu dans user.image
+//Mettre en forme en JS les éléments suivants :
+//-paragraphe nom, prenom, age : police taille 11 px, couleur blue,
+//-taille de l'image : 100 px de large et 100 px de long,
+//-Aligner l'image à en haut à droite et ajouter un margin de 10 px.
+//-remplacer la couleur de fond de la div : rgb(220, 220, 220).
+//NB : pour remplacer le contenu text d'un élément HTML, utilisez textContent
+
 let div = document.querySelector("div");
-let parag = document.querySelector("div p");
+div.id = user.id;
 
-titre.style.fontSize = "14px";
-div.style.fontFamily = "Arial";
-parag.style.color = "green";
-div.style.marginTop = "30px";
+let parags = document.querySelectorAll("p");
+parags[0].textContent = user.nom;
+parags[1].textContent = user.prenom;
+parags[2].textContent = user.age;
 
-titre.textContent = "nouveau titre";
-parag.textContent = "nouveau contenu du paragraphe"
+let img = document.querySelector("img");
+img.src = user.image;
+
+parags.forEach(element => {
+    element.style = "font-size: 11px; color: blue;"
+});
+
+img.style.width = "100px";
+img.style.height = "100px";
+img.style.display = "block";
+img.style.margin = "10px";
+img.style.marginLeft = "auto";
+
+div.style.backgroundColor = "rgb(220, 220, 220)";
