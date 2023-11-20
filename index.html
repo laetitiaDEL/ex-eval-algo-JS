@@ -3,14 +3,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./main.js" async></script>
-    <title>Ex21 JS</title>
+    <title>Ex22 JS</title>
 </head>
 <body>
 
-    <h1>Calculer le prix à payer</h1>
-    <input type="text" id="quantite" name="quantite">
-    <input type="button" onclick="calculer()" value="Calculer">
-    <p id="resultat"></p>
+    <h1>Calculer le prix TTC</h1>
+ 
+    <label for="prix">Prix</label>
+    <input type="number" name="prix" id="prixHT">
+    </br>   
+    </br>   
+    <label for="nombre">Quantité</label>
+    <input type="text" name="nombre" id="quantite">
+    </br>   
+    </br> 
+    <input type="button" name="calculer" value="Calculer" onclick="calculer()">
+    </br>   
+    </br>   
+    <p>Prix TTC : 
+        <p id="resultat"></p>
+    </p>
 
 
 </body>
