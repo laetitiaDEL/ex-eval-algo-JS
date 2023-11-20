@@ -14,9 +14,9 @@
 //-le contenu du paragraphe -> nouveau contenu du paragraphe.
 //NB : En utilisant querySelector.
 
-titre = document.querySelector("h1");
-div = document.querySelector("div");
-parag = document.querySelector("p");
+let titre = document.querySelector("h1");
+let div = document.querySelector("div");
+let parag = document.querySelector("p");
 
 titre.style.fontSize = "14px";
 div.style.fontFamily = "Arial";
