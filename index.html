@@ -3,20 +3,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./main.js" async></script>
-    <title>Ex23 JS</title>
+    <title>Ex24 JS</title>
 </head>
 <body>
 
-    <label for="email">Email :</label>
-    <input type="text" id="email">
+    <h1>Liste des tâches</h1>
+    <label for="task">Tâche</label>
+    <input type="text" id="task">
+    <button id="add" onclick="addTask()">Ajouter</button>
     <br>
     <br>
-    <label for="password">Password :</label>
-    <input type="password" id="password">
-    <input type="button" id="bt" value="Valider">
-    <br>
-    <br>
-    <p id="error"></p>
+    <button id="delAllTasks" onclick="delAllTasks()">Tout Supprimer</button>
+    <button id="reload" onclick="reload()">Recharger la page</button>
+    <div id="tasks"></div>
+
+
 
 
 

@@ -1,67 +1,73 @@
-//Exercice 23 DOM :
+//Exercice 24 DOM :
+//En vous inspirant de l'exemple ci-dessus :
 //Partie HTML :
-//Ajouter dans la page les éléments suivants :
-//-1 input type text (id = email),
-//-1 input type password(id= password),
-//-1 input type button (id=bt)
+//-un titre h1 = liste des tâches,
+//-un input de type text (id= task),
+//-un bouton (id = add, onclick = addTask()) texte Ajouter,
+//-un bouton (id = delAllTask, onclick = delAllTask()) texte Tout Supprimer,
+//-un bouton (id = reload, onclick = reload()) texte Recharger la page,
+//-une div (id = tasks)
+
 //Partie JS :
-//1 Ajouter un écouteur événement (keyup (touche clavier est relâchée )-> input (id= email) 
+//-Créer une fonction addtask qui va ajouter à chaque clic sur le bouton une nouvelle tache à la div (id = task),:
+//-Récupérer la div (tasks)
+//Récupérer la valeur de l'input (id task),
+//-Créer un paragraphe,
+//Ajouter la valeur de l'input (id task)  au paragraphe,
+//Ajouter le paragraphe à la div (id = tasks)
+//-Créer une fonction delAllTask qui va à chaque clic sur le bouton supprimer tous les enfants (child) contenu dans la div (tasks),
+//-Créer une fonction reload qui va à chaque clic sur le bouton recharger la page.
 
-//         -> vérifier si le contenu de l'input (id= email) match  le pattern suivant :
-//                   --
+function addTask(){
+  let task = document.getElementById("task").value;
+  let div = document.getElementById("tasks");
+  let newTask = document.createElement("div");
+  newTask.classList.add("container");
+  let pNewTask = document.createElement("p");
+  pNewTask.textContent = task;
+  let suppr = document.createElement("button");
+  suppr.setAttribute("id", "delete");
+  suppr.setAttribute("onclick", "deleteTask(this)");
+  suppr.textContent = "Supprimer tâche";
+  let update = document.createElement("button");
+  update.setAttribute("id", "update");
+  update.setAttribute("onclick", "updateTask(this)");
+  update.textContent = "Modifier tâche";
+  newTask.appendChild(pNewTask);
+  newTask.appendChild(suppr);
+  newTask.appendChild(update);
+  div.appendChild(newTask);
+}
 
-const parag = document.getElementById("error");
+function delAllTasks(){
+  let allTasks = document.querySelectorAll("div.container");
+  allTasks.forEach(element => {
+    element.remove();
+  });
+}
 
+function reload(){
+  location.reload();
+}
 
-let regexEmail =/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+function deleteTask(task){
+  task.parentNode.remove();
+}
 
-const btn = document.getElementById("bt");
+function updateTask(task){
+  task.parentNode.firstChild.textContent = document.getElementById("task").value;
+}
 
-btn.addEventListener("click", () => {
-  let mail = document.getElementById("email");
-
-  if(regexEmail.test(email.value)){
-    mail.style.backgroundColor = "green";
-  }else{
-    mail.style.backgroundColor = "red";
-  }
-
-  try{
-    if((!regexEmail.test(mail.value)) || (!regexPassword.test(password.value))){
-      throw "Invalide.";
-    }
-    if((regexEmail.test(mail.value)) && (regexPassword.test(password.value))){
-      parag.textContent = "Valide.";
-    }
-  }
-  catch(error){
-    parag.textContent = error;
-  }
-})
-
-//         -> si le email match le pattern mettre l'input (email) en vert (backgroundColor)
-//         -> sinon mettre l'input (email) en rouge(backgroundColor)
-
-//2 Ajouter un écouteur événement (blur(désélection de l'input)-> input (id= password) 
-//         -> vérifier si le contenu de l'input (id= password) match  le pattern suivant :
-let regexPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{12,20}$/;
-let password = document.getElementById("password");
-password.addEventListener("blur", () => {
-  if(regexPassword.test(password.value)){
-    password.style.backgroundColor = "green";
-  }else{
-    password.style.backgroundColor = "red";
-  }
-})
-
-let mail = document.getElementById("email");
-
-
-
-//         -> si le password match le pattern mettre l'input (password) en vert (backgroundColor)
-//         -> sinon mettre l'input (password) en rouge(backgroundColor)
-//Bonus : Ajouter un paragraphe (id = error)  dans la partie HTML :
-//Afficher à l'intérieur :
-//Si le password et l' email sont valides => valide,
-//Si le password ou l' email sont invalides => invalide ,
-//Utiliser test() plutôt que match() dans vos conditions.
+//Bonus :
+//-Dans la fonction addTask (remplacer le code précédent) :
+//A chaque clic sur la fonction : 
+//      -ajouter une div (class = container),
+//          -> à l'intérieur de la div pour aller ajouter un paragraphe,
+//          -> récupérer le contenu de l'input texte (task) et passer la valeur au paragraphe,
+//          -> ajouter un bouton (id = delete, onclick = deleteTask(this),
+//          -> ajouter un bouton (id = update, onclick = updateTask(this),
+//          ->Ajouter une fonction deleteTask qui va :
+//             Supprimer la tache sélectionnée,
+//          -Ajouter une fonction updateTask qui va :
+//            Mettre à jour le nom de la tache depuis l'input du formulaire (id = task)
+//NB : on à besoin d'utiliser la création d'élément (createElement() et appendChild())
