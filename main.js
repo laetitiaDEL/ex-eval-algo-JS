@@ -18,6 +18,7 @@
 //-Créer une fonction delAllTask qui va à chaque clic sur le bouton supprimer tous les enfants (child) contenu dans la div (tasks),
 //-Créer une fonction reload qui va à chaque clic sur le bouton recharger la page.
 
+
 function addTask(){
   let task = document.getElementById("task").value;
   let div = document.getElementById("tasks");
@@ -54,8 +55,40 @@ function deleteTask(task){
   task.parentNode.remove();
 }
 
+//Exercice 25 DOM :
+//Depuis l'exercice 24 précédent modifier la fonction updateTask :
+//elle va effectuer le traitement suivant (updateTask):
+//-ajouter une condition qui va tester la valeur de la variable statut :
+//       -> si statut est égal à true (if)
+//                -1 récupérer la valeur du paragraphe,
+//                -2 créer un input de type texte,
+//                -3 remplacer le paragraphe par l'input précédemment créé, (replaceChild(nouvel élément, enfant)
+//                -4 assigner la valeur (1) à l'input,
+//                -5 passer statut à false,
+//      -> si statut est égal à false (else) :
+//                -1 récupérer la valeur de l'input (value),
+//                -2 créer un paragraphe,
+//                -3 remplacer l'input par le paragraphe replaceChild (paragraphe, enfant (input),
+//                -4 assigner au paragraphe la valeur (1),
+//                -5 passer statut à true,
+let statut = true;
 function updateTask(task){
-  task.parentNode.firstChild.textContent = document.getElementById("task").value;
+  if(statut){
+    let div = task.parentNode;
+    console.log(div);
+    let input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "correction");
+    div.replaceChild(input, div.firstChild);
+    statut = false;
+  }else{
+    let div = task.parentNode;
+    inputValue = document.getElementById("correction").value;
+    let newParag = document.createElement("p");
+    div.replaceChild(newParag, div.firstChild);
+    newParag.textContent = inputValue;
+    statut = true;
+  }
 }
 
 //Bonus :
