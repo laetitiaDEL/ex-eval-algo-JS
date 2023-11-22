@@ -23,9 +23,19 @@ const apiMeteo = fetch(url)
                         temp.textContent = (json.main.temp -273.15).toFixed(1)+"°C";
                         let coord = document.createElement("p");
                         coord.textContent = JSON.stringify(json.coord);
-                        console.log(coord);
+                        let weatherImg = document.createElement("img");
+                        weatherImg.setAttribute("src", "https://openweathermap.org/img/wn/"+json.weather[0].icon+"@2x.png");
+                        body.appendChild(weatherImg);
                         body.appendChild(temp);
                         body.appendChild(coord);
                     });
 
-                    
+//Bonus 2 : Afficher à la place de la valeur du temps qu'il fait (weather.main) l'image correspondante (dans une balise image).
+//Le nom de l'image est dans wheater.icon
+//Ressources :
+//Documentation :
+//https://openweathermap.org/weather-conditions
+//icones :
+//https://openweathermap.org/img/wn/10d@2x.png
+//https://openweathermap.org/img/wn/11d@2x.png
+//https://openweathermap.org/img/wn/13d@2x.png
