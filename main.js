@@ -1,25 +1,64 @@
-//Exercice 24 DOM :
-//En vous inspirant de l'exemple ci-dessus :
-//Partie HTML :
-//-un titre h1 = liste des tâches,
-//-un input de type text (id= task),
-//-un bouton (id = add, onclick = addTask()) texte Ajouter,
-//-un bouton (id = delAllTask, onclick = delAllTask()) texte Tout Supprimer,
-//-un bouton (id = reload, onclick = reload()) texte Recharger la page,
-//-une div (id = tasks)
+//Exercice 26 DOM :
+//Depuis la correction de l'exercice 25 :
+//Créer une clé "tasks" qui va avoir comme valeur un tableau vide dans le localStorage (  []  ) 
+//pour éviter que le clé tasks soit réécrite chaque fois :
+//création du tableau
+localStorage.getItem('tasks') == null ? localStorage.setItem("tasks", []):false;
 
-//Partie JS :
-//-Créer une fonction addtask qui va ajouter à chaque clic sur le bouton une nouvelle tache à la div (id = task),:
-//-Récupérer la div (tasks)
-//Récupérer la valeur de l'input (id task),
-//-Créer un paragraphe,
-//Ajouter la valeur de l'input (id task)  au paragraphe,
-//Ajouter le paragraphe à la div (id = tasks)
-//-Créer une fonction delAllTask qui va à chaque clic sur le bouton supprimer tous les enfants (child) contenu dans la div (tasks),
-//-Créer une fonction reload qui va à chaque clic sur le bouton recharger la page.
+//Modifier la fonction addTask pour qu'elle éffectue le traitement suivant :
+//-Réutiliser le code de la correction de l'exercice 25.
+//Ajouter dans la partie html sur le body l'attribut : 
+//-onload="showAllTask()"
+//Ajouter une nouvelle méthode showAllTasks :
+function showAllTasks(){
+  let tabTasks = localStorage.getItem('tasks').split(',');
+  tabTasks.forEach(element => {
+    if(element !== ""){
+      let div = document.getElementById("tasks");
+      let newTask = document.createElement("div");
+      newTask.classList.add("container");
+      let pNewTask = document.createElement("p");
+      pNewTask.textContent = element;
+      let suppr = document.createElement("button");
+      suppr.setAttribute("id", "delete");
+      suppr.setAttribute("onclick", "deleteTask(this)");
+      suppr.textContent = "Supprimer tâche";
+      let update = document.createElement("button");
+      update.setAttribute("id", "update");
+      update.setAttribute("onclick", "updateTask(this)");
+      update.textContent = "Modifier tâche";
+      newTask.appendChild(pNewTask);
+      newTask.appendChild(suppr);
+      newTask.appendChild(update);
+      div.appendChild(newTask);
+    }
+  });
+}
+//-depuis la clé tasks du localStorage et la tansformer en tableau split(',')
+//-Parcourir le tableau (localstorage) et générer les tâches (comme dans la fonction addTask())
 
 
 function addTask(){
+  //le code ci-dessous  : récupére la clé tasks dans le localstorage 
+  //et le met à jour avec la valeur saisie dans l'input du formulaire
+  //récupération de l'input ('#task)
+  let valeur = document.querySelector('#task').value;
+  //récupérer dans une variable la valeur clé ('tasks')
+  let tasks = localStorage.getItem('tasks');
+  //test si la clé tasks dans localstorage est vide
+  if(tasks==""){
+    tasks+= valeur;
+  }
+  //test sinon elle n'est pas vide
+  else{
+      //transforme en tableau
+      tasks = tasks.split(",");
+      //ajoute la valeur de l'input au tableau
+      tasks.push(valeur);
+  }
+  //mise à jour de la clé
+  localStorage.setItem('tasks',tasks);
+
   let task = document.getElementById("task").value;
   let div = document.getElementById("tasks");
   let newTask = document.createElement("div");
@@ -45,6 +84,7 @@ function delAllTasks(){
   allTasks.forEach(element => {
     element.remove();
   });
+  localStorage.clear();
 }
 
 function reload(){
@@ -52,55 +92,47 @@ function reload(){
 }
 
 function deleteTask(task){
+  let tasks = localStorage.getItem('tasks');
+  let tabTasks = tasks.split(',');
+  for(let i=0; i<tabTasks.length; i++){
+    if(tabTasks[i] == task.parentNode.firstChild.textContent){
+      let finTabTasks = tabTasks.splice(i,1);
+    }
+  }
+  localStorage.setItem('tasks', tabTasks);
   task.parentNode.remove();
 }
 
-//Exercice 25 DOM :
-//Depuis l'exercice 24 précédent modifier la fonction updateTask :
-//elle va effectuer le traitement suivant (updateTask):
-//-ajouter une condition qui va tester la valeur de la variable statut :
-//       -> si statut est égal à true (if)
-//                -1 récupérer la valeur du paragraphe,
-//                -2 créer un input de type texte,
-//                -3 remplacer le paragraphe par l'input précédemment créé, (replaceChild(nouvel élément, enfant)
-//                -4 assigner la valeur (1) à l'input,
-//                -5 passer statut à false,
-//      -> si statut est égal à false (else) :
-//                -1 récupérer la valeur de l'input (value),
-//                -2 créer un paragraphe,
-//                -3 remplacer l'input par le paragraphe replaceChild (paragraphe, enfant (input),
-//                -4 assigner au paragraphe la valeur (1),
-//                -5 passer statut à true,
+let ancien = "";
 let statut = true;
 function updateTask(task){
   if(statut){
     let div = task.parentNode;
-    console.log(div);
     let input = document.createElement("input");
     input.setAttribute("type", "text");
     input.setAttribute("id", "correction");
+    input.setAttribute("value", task.parentNode.firstChild.textContent);
+    ancien = input.value;
     div.replaceChild(input, div.firstChild);
     statut = false;
   }else{
     let div = task.parentNode;
-    inputValue = document.getElementById("correction").value;
+    let tasks = localStorage.getItem('tasks');
+    let tabTasks = tasks.split(',');
+    let inputValue = document.getElementById("correction").value;
+    console.log(inputValue);
     let newParag = document.createElement("p");
+    for(let i=0; i<tabTasks.length; i++){
+      if(tabTasks[i] == ancien){
+        let finTabTasks = tabTasks.splice(i,1, inputValue);
+      }
+    }
+    localStorage.setItem('tasks', tabTasks);
     div.replaceChild(newParag, div.firstChild);
     newParag.textContent = inputValue;
     statut = true;
   }
 }
 
-//Bonus :
-//-Dans la fonction addTask (remplacer le code précédent) :
-//A chaque clic sur la fonction : 
-//      -ajouter une div (class = container),
-//          -> à l'intérieur de la div pour aller ajouter un paragraphe,
-//          -> récupérer le contenu de l'input texte (task) et passer la valeur au paragraphe,
-//          -> ajouter un bouton (id = delete, onclick = deleteTask(this),
-//          -> ajouter un bouton (id = update, onclick = updateTask(this),
-//          ->Ajouter une fonction deleteTask qui va :
-//             Supprimer la tache sélectionnée,
-//          -Ajouter une fonction updateTask qui va :
-//            Mettre à jour le nom de la tache depuis l'input du formulaire (id = task)
-//NB : on à besoin d'utiliser la création d'élément (createElement() et appendChild())
+
+
